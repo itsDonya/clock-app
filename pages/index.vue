@@ -1,31 +1,9 @@
 <template>
-  <div class="container bg-light">
-    <div>
-      <logo />
-      <h1 class="title">clock</h1>
-      <h2 class="subtitle">professional clock app</h2>
-      <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" class="button--green">
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
-    </div>
-  </div>
+  <h1>{{ name }}</h1>
 </template>
 
-<script>
-import Logo from "~/components/Logo.vue";
+<script setup>
+import { ref } from "@nuxtjs/composition-api";
 
-export default {
-  components: {
-    Logo,
-  },
-};
+const name = ref("Clock App");
 </script>

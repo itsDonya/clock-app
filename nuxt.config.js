@@ -40,7 +40,7 @@ export default {
   /*
    ** Nuxt.js dev-modules
    */
-  buildModules: [],
+  buildModules: ["@nuxtjs/composition-api/module"],
   /*
    ** Nuxt.js modules
    */
