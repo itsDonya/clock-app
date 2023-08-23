@@ -1,5 +1,8 @@
 <template>
-  <div class="w-full py-8 flex flex-col items-center justify-start gap-6">
+  <div class="w-full py-8 flex flex-col items-center justify-start gap-8">
+    <!-- title -->
+    <h1 class="text-3xl text-center font-medium text-secondary">Timer</h1>
+
     <!-- clock -->
     <timer-clock></timer-clock>
 
