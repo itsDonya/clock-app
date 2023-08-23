@@ -4,7 +4,7 @@
     <h1 class="text-3xl text-center font-medium text-secondary">Timer</h1>
 
     <!-- clock -->
-    <timer-clock @time-submitted="timeSubmitted"></timer-clock>
+    <timer-clock @stop="resetTimer"></timer-clock>
 
     <!-- buttons -->
     <div
@@ -31,30 +31,31 @@ export default {
 </script>
 
 <script setup>
-import { ref } from "@nuxtjs/composition-api";
+import { ref, provide } from "@nuxtjs/composition-api";
 
 // variables
-const isReady = ref(false);
 const started = ref(false);
 const isRunning = ref(false);
 
+// provide
+provide("started", started);
+
 // methods
 const start = () => {
-  if (isReady.value) {
-    started.value = true;
-  }
-};
-const timeSubmitted = () => {
-  isReady.value = true;
-};
-const cancel = () => {
-  started.value = false;
-  isReady.value = false;
+  started.value = true;
+  isRunning.value = true;
 };
 const stop = () => {
   isRunning.value = false;
 };
 const resume = () => {
   isRunning.value = true;
+};
+const cancel = () => {
+  started.value = false;
+};
+const resetTimer = () => {
+  started.value = false;
+  isRunning.value = false;
 };
 </script>
