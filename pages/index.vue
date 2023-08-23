@@ -1,9 +1,7 @@
-<template>
-  <h1>{{ name }}</h1>
-</template>
+<template></template>
 
-<script setup>
-import { ref } from "@nuxtjs/composition-api";
-
-const name = ref("Clock App");
+<script>
+export default {
+  layout: "App",
+};
 </script>
