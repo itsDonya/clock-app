@@ -5,8 +5,10 @@
     >
       <app-sidebar></app-sidebar>
     </aside>
-    <main class="w-full h-full">
-      <nuxt />
+    <main class="w-full h-full flex items-center justify-center">
+      <app-container>
+        <nuxt />
+      </app-container>
     </main>
   </div>
 </template>
