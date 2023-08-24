@@ -3,18 +3,24 @@
 @tailwind utilities;
 
 @layer base {
+  /* custom shadows */
   .custom-shadow-1 {
     box-shadow: 16px 0px 44px #c6bcbc, -16px 0px 44px #ffffff;
   }
-
   .custom-shadow-2 {
     box-shadow: 8px 6px 24px #c6bcbc, -8px -6px 14px #ffffff;
   }
-  @layer base {
-    input[type="number"]::-webkit-inner-spin-button,
-    input[type="number"]::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
+
+  /* remove number inputs' arrows */
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* general */
+  input,
+  button {
+    @apply focus:outline-none;
   }
 }
