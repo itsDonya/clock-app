@@ -51,6 +51,7 @@ const emit = defineEmits(["stop"]);
 
 // inject
 const isTimerStarted = inject("started");
+const isTimerRunning = inject("running");
 
 // computed
 const displaySeconds = computed(() => {
@@ -63,16 +64,18 @@ const displayMinutes = computed(() => {
 // methods
 const calculateTimer = () => {
   const secondInterval = setInterval(function () {
-    if (seconds.value > 0) {
-      seconds.value--;
-    } else {
-      if (minutes.value > 0) {
-        minutes.value--;
-        seconds.value = 59;
+    if (isTimerRunning.value) {
+      if (seconds.value > 0) {
+        seconds.value--;
       } else {
-        clearInterval(secondInterval);
-        stopTimer();
-        clearTimerData();
+        if (minutes.value > 0) {
+          minutes.value--;
+          seconds.value = 59;
+        } else {
+          clearInterval(secondInterval);
+          stopTimer();
+          clearTimerData();
+        }
       }
     }
   }, 1000);

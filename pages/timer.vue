@@ -39,6 +39,7 @@ const isRunning = ref(false);
 
 // provide
 provide("started", started);
+provide("running", isRunning);
 
 // methods
 const start = () => {
