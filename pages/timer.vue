@@ -4,11 +4,11 @@
     <h1 class="text-3xl text-center font-medium text-secondary">Timer</h1>
 
     <!-- clock -->
-    <timer-clock @stop="resetTimer"></timer-clock>
+    <timer-clock @stop="resetTimer" @not-valid="timeValidation"></timer-clock>
 
     <!-- buttons -->
     <div
-      v-if="started && !isRunning"
+      v-if="isStarted && !isRunning"
       class="w-full flex items-center justify-center gap-8"
     >
       <base-btn @click="cancel" class="text-neutral-500">cancel</base-btn>
@@ -16,7 +16,7 @@
     </div>
     <base-btn
       @click="stop"
-      v-else-if="started && isRunning"
+      v-else-if="isStarted && isRunning"
       class="text-primary"
       >stop</base-btn
     >
@@ -31,19 +31,20 @@ export default {
 </script>
 
 <script setup>
-import { ref, provide } from "@nuxtjs/composition-api";
+import { ref, provide, useStore } from "@nuxtjs/composition-api";
 
 // variables
-const started = ref(false);
+const store = useStore();
+const isStarted = ref(false);
 const isRunning = ref(false);
 
 // provide
-provide("started", started);
+provide("started", isStarted);
 provide("running", isRunning);
 
 // methods
 const start = () => {
-  started.value = true;
+  isStarted.value = true;
   isRunning.value = true;
 };
 const stop = () => {
@@ -53,11 +54,14 @@ const resume = () => {
   isRunning.value = true;
 };
 const cancel = () => {
-  started.value = false;
-  isRunning.value = false;
+  resetTimer();
 };
 const resetTimer = () => {
-  started.value = false;
+  isStarted.value = false;
   isRunning.value = false;
+};
+const timeValidation = (validationError) => {
+  resetTimer();
+  store.dispatch("showSnackbar", validationError);
 };
 </script>

@@ -46,9 +46,11 @@ import { ref, computed, inject, watch } from "@nuxtjs/composition-api";
 const seconds = ref(0);
 const minutes = ref(0);
 const totalSeconds = ref(0);
+const isValid = ref(false);
+const validationError = ref("");
 
 // emit
-const emit = defineEmits(["stop"]);
+const emit = defineEmits(["stop", "not-valid"]);
 
 // inject
 const isTimerStarted = inject("started");
@@ -110,12 +112,35 @@ const resetTimerData = () => {
   stopTimer();
 };
 
+const checkTimeValidation = () => {
+  if (minutes.value > 60) {
+    validationError.value = "Please enter a maximum of 60 minutes.";
+  } else if (minutes.value < 0) {
+    validationError.value = "Minutes value cannot be less than Zero.";
+  } else if (seconds.value > 59) {
+    validationError.value = "Please enter a maximum of 59 seconds.";
+  } else if (seconds.value < 0) {
+    validationError.value = "Seconds value cannot be less than Zero.";
+  } else if (seconds.value === 0 && minutes.value === 0) {
+    validationError.value = "Minutes & Seconds value cannot be empty.";
+  } else {
+    validationError.value = "";
+    isValid.value = true;
+  }
+};
+
 // watchers
 watch(
   () => isTimerStarted.value,
   (newval) => {
     if (newval === true) {
-      calculateTimer();
+      checkTimeValidation();
+
+      if (isValid.value) {
+        calculateTimer();
+      } else {
+        emit("not-valid", validationError.value);
+      }
     } else {
       resetTimerData();
     }
