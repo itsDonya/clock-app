@@ -80,11 +80,9 @@ const calculateTimer = () => {
     if (isTimerRunning.value) {
       if (seconds.value > 0) {
         seconds.value--;
-        console.log("minus 1");
       } else {
         if (minutes.value > 0) {
           minutes.value--;
-          console.log("minus 2");
           seconds.value = 59;
         } else {
           clearInterval(secondInterval);

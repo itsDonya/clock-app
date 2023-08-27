@@ -5,10 +5,24 @@
     >
       <app-sidebar></app-sidebar>
     </aside>
-    <main class="w-full h-full flex items-center justify-center">
+    <main class="relative w-full h-full flex items-center justify-center">
       <app-container>
         <nuxt />
       </app-container>
+
+      <!-- snackbar -->
+      <transition
+        enter-from-class="opacity-0"
+        enter-active-class="transition-all duration-300"
+        enter-to-class="opacity-100"
+        leave-to-class="opacity-0"
+        leave-active-class="transition-all duration-300"
+        leave-from-class="opacity-100"
+      >
+        <base-snackbar v-if="$store.state.snackbarShow">{{
+          $store.state.snackbarText
+        }}</base-snackbar>
+      </transition>
     </main>
   </div>
 </template>
