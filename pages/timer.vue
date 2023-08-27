@@ -54,6 +54,7 @@ const resume = () => {
 };
 const cancel = () => {
   started.value = false;
+  isRunning.value = false;
 };
 const resetTimer = () => {
   started.value = false;

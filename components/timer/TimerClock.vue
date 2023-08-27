@@ -45,7 +45,7 @@ import { ref, computed, inject, watch } from "@nuxtjs/composition-api";
 // variables
 const seconds = ref(0);
 const minutes = ref(0);
-const totalSeconds = ref(minutes.value * 60 + seconds.value);
+const totalSeconds = ref(0);
 
 // emit
 const emit = defineEmits(["stop"]);
@@ -85,11 +85,12 @@ const calculateTimer = () => {
           minutes.value--;
           seconds.value = 59;
         } else {
+          resetTimerData();
           clearInterval(secondInterval);
-          clearTimerData();
-          stopTimer();
         }
       }
+    } else if (!isTimerStarted.value) {
+      clearInterval(secondInterval);
     }
   }, 1000);
 };
@@ -98,16 +99,26 @@ const stopTimer = () => {
   emit("stop");
 };
 
-const clearTimerData = () => {
+const clearTimer = () => {
   seconds.value = 0;
   minutes.value = 0;
+  totalSeconds.value = 0;
+};
+
+const resetTimerData = () => {
+  clearTimer();
+  stopTimer();
 };
 
 // watchers
 watch(
   () => isTimerStarted.value,
   (newval) => {
-    if (newval === true) calculateTimer();
+    if (newval === true) {
+      calculateTimer();
+    } else {
+      resetTimerData();
+    }
   }
 );
 </script>
