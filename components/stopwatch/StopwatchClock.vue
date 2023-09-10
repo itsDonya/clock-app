@@ -125,8 +125,9 @@ const stopStopwatch = () => {
 };
 
 const clearStopwatch = () => {
-  seconds.value = 0;
+  hours.value = 0;
   minutes.value = 0;
+  seconds.value = 0;
   totalSeconds.value = 0;
 };
 

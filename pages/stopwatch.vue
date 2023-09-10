@@ -4,7 +4,10 @@
     <h1 class="text-3xl text-center font-medium text-secondary">Stopwatch</h1>
 
     <!-- clock -->
-    <stopwatch-clock @not-valid="stopwatchValidation"></stopwatch-clock>
+    <stopwatch-clock
+      @not-valid="stopwatchValidation"
+      @stop="cancel"
+    ></stopwatch-clock>
 
     <!-- buttons -->
     <div
@@ -49,6 +52,7 @@ const start = () => {
 };
 const stop = () => {
   isRunning.value = false;
+  console.log("stopped");
 };
 const resume = () => {
   isRunning.value = true;

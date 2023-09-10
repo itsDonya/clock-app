@@ -2,7 +2,7 @@
   <div
     class="absolute bg-light top-0 right-0 w-full h-full rounded-full rotate-90 -z-20"
   >
-    <span v-for="i in 25" :key="i" ref="test"></span>
+    <span v-for="i in 25" :key="i" ref="indicator"></span>
   </div>
 </template>
 
@@ -16,7 +16,7 @@ export default {
 import { ref, onMounted } from "@nuxtjs/composition-api";
 
 // variabels
-const test = ref(null);
+const indicator = ref(null);
 const counter = ref(0);
 
 // props
@@ -30,9 +30,9 @@ const props = defineProps({
 
 // lifecycles
 onMounted(() => {
-  for (let i in test.value) {
+  for (let i in indicator.value) {
     // select element
-    const el = test.value[i];
+    const el = indicator.value[i];
 
     // calculate counter
     counter.value = i * 15;
