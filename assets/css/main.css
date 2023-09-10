@@ -23,4 +23,9 @@
   button {
     @apply focus:outline-none;
   }
+
+  /* scrollbar */
+  ::-webkit-scrollbar {
+    @apply hidden;
+  }
 }

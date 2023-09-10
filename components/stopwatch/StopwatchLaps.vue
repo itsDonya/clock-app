@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="w-full flex flex-col-reverse items-center justify-start gap-4 overflow-y-auto"
-  >
+  <div class="w-full flex flex-col-reverse items-center justify-start gap-4">
     <stopwatch-lap-item v-for="(lap, i) in laps" :key="i" :index="i + 1">
       {{ lap }}
     </stopwatch-lap-item>
