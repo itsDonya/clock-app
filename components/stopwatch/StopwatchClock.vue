@@ -32,8 +32,8 @@ import {
 } from "@nuxtjs/composition-api";
 
 // variables
-const minutes = ref(29);
-const seconds = ref(56);
+const minutes = ref(0);
+const seconds = ref(0);
 const milliseconds = ref(0);
 const store = useStore();
 
