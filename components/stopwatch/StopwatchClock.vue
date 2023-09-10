@@ -32,9 +32,9 @@ import {
 } from "@nuxtjs/composition-api";
 
 // variables
-const hours = ref(23);
-const minutes = ref(59);
-const seconds = ref(58);
+const hours = ref(0);
+const minutes = ref(0);
+const seconds = ref(0);
 const store = useStore();
 
 // inject
@@ -43,7 +43,7 @@ const isStopwatchStarted = inject("started");
 const isStopwatchRunning = inject("running");
 
 // emit
-const emit = defineEmits(["stop", "not-valid"]);
+const emit = defineEmits(["stop", "lap"]);
 
 // computed
 const displayHours = computed(() => {
@@ -117,9 +117,8 @@ watch(
   () => lap.value,
   (newval) => {
     if (newval) {
-      console.log(
-        `${displayHours.value}:${displayMinutes.value}:${displaySeconds.value}`
-      );
+      const currentStopwatchTime = `${displayHours.value}:${displayMinutes.value}:${displaySeconds.value}`;
+      emit("lap", currentStopwatchTime);
     }
   }
 );

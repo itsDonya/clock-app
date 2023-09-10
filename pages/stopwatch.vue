@@ -4,10 +4,7 @@
     <h1 class="text-3xl text-center font-medium text-secondary">Stopwatch</h1>
 
     <!-- clock -->
-    <stopwatch-clock
-      @not-valid="stopwatchValidation"
-      @stop="cancel"
-    ></stopwatch-clock>
+    <stopwatch-clock @stop="cancel" @lap="addLap"></stopwatch-clock>
 
     <!-- buttons -->
     <base-btn
@@ -29,6 +26,8 @@
       <base-btn @click="stop" class="text-neutral-500">stop</base-btn>
       <base-btn @click="setLap" class="text-neutral-500">lap</base-btn>
     </div>
+
+    <stopwatch-laps :laps="laps"></stopwatch-laps>
   </div>
 </template>
 
@@ -39,13 +38,13 @@ export default {
 </script>
 
 <script setup>
-import { ref, provide, useStore } from "@nuxtjs/composition-api";
+import { ref, provide } from "@nuxtjs/composition-api";
 
 // variables
 const isStarted = ref(false);
 const isRunning = ref(false);
 const lap = ref("00:00:00");
-const store = useStore();
+const laps = ref([]);
 
 // provide
 provide("started", isStarted);
@@ -63,6 +62,9 @@ const stop = () => {
 const resume = () => {
   isRunning.value = true;
 };
+const addLap = (newLap) => {
+  laps.value.push(newLap);
+};
 const cancel = () => {
   resetStopwatch();
 };
@@ -75,9 +77,6 @@ const setLap = () => {
 const resetStopwatch = () => {
   isStarted.value = false;
   isRunning.value = false;
-};
-const stopwatchValidation = (validationError) => {
-  resetStopwatch();
-  store.dispatch("showSnackbar", validationError);
+  laps.value = [];
 };
 </script>
