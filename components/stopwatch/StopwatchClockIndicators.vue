@@ -9,7 +9,7 @@
         `rotate-[${i * 15}deg]`,
         `${i * 15 <= degree ? 'before:bg-primary' : 'before:bg-secondary'}`,
       ]"
-      class="absolute content-[''] bottom-[50%] top-[50%] w-full h-[2px] inline-block before:absolute before:top-0 before:left-0 before:w-4 before:h-full before:rounded-xl"
+      class="absolute content-[''] bottom-[50%] top-[50%] w-full h-[3px] inline-block before:absolute before:top-0 before:left-1 before:w-3 before:h-full before:rounded-xl"
     ></span>
   </div>
 </template>

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="stopwatch-container relative w-56 h-56 p-1 bg-light rounded-full custom-shadow-1 z-[1] flex items-center justify-center"
+    class="stopwatch-container relative w-56 h-56 bg-light rounded-full custom-shadow-1 z-[1] flex items-center justify-center"
   >
     <!-- clock indicators -->
     <stopwatch-clock-indicators
