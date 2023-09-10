@@ -10,7 +10,7 @@
       class="w-[90%] h-[90%] rounded-full flex items-center justify-center z-40"
     >
       <p class="text-3xl text-center font-bold text-primary">
-        {{ displayHours }}:{{ displayMinutes }}:{{ displaySeconds }}
+        {{ displayMinutes }}:{{ displaySeconds }}.{{ displayMilliseconds }}
       </p>
     </div>
   </div>
@@ -32,9 +32,9 @@ import {
 } from "@nuxtjs/composition-api";
 
 // variables
-const hours = ref(0);
-const minutes = ref(0);
-const seconds = ref(0);
+const minutes = ref(29);
+const seconds = ref(56);
+const milliseconds = ref(0);
 const store = useStore();
 
 // inject
@@ -46,37 +46,38 @@ const isStopwatchRunning = inject("running");
 const emit = defineEmits(["stop", "lap"]);
 
 // computed
-const displayHours = computed(() => {
-  return String(hours.value).length < 2 ? `0${hours.value}` : hours.value;
-});
 const displayMinutes = computed(() => {
   return String(minutes.value).length < 2 ? `0${minutes.value}` : minutes.value;
 });
 const displaySeconds = computed(() => {
   return String(seconds.value).length < 2 ? `0${seconds.value}` : seconds.value;
 });
+const displayMilliseconds = computed(() => {
+  return String(milliseconds.value).length < 2
+    ? `0${milliseconds.value}`
+    : milliseconds.value;
+});
 
 // methods
 const calculateStopwatch = () => {
   const secondInterval = setInterval(function () {
     if (isStopwatchRunning.value) {
-      if (seconds.value < 59) {
-        seconds.value++;
+      if (milliseconds.value < 99) {
+        milliseconds.value++;
       } else {
-        if (minutes.value < 59) {
-          minutes.value++;
-          seconds.value = 0;
+        if (seconds.value < 59) {
+          milliseconds.value = 0;
+          seconds.value++;
         } else {
-          minutes.value = 0;
-          seconds.value = 0;
-          if (hours.value < 23) {
-            hours.value++;
+          if (minutes.value < 29) {
+            seconds.value = 0;
+            minutes.value++;
           } else {
             clearInterval(secondInterval);
             resetStopwatchData();
             store.dispatch(
               "showSnackbar",
-              "Stopwatch can't run over 24 hours!"
+              "Stopwatch can't run over 30 minutes!"
             );
           }
         }
@@ -84,7 +85,7 @@ const calculateStopwatch = () => {
     } else if (!isStopwatchStarted.value) {
       clearInterval(secondInterval);
     }
-  }, 1000);
+  }, 10);
 };
 
 const stopStopwatch = () => {
@@ -92,9 +93,9 @@ const stopStopwatch = () => {
 };
 
 const clearStopwatch = () => {
-  hours.value = 0;
   minutes.value = 0;
   seconds.value = 0;
+  milliseconds.value = 0;
 };
 
 const resetStopwatchData = () => {
@@ -117,7 +118,7 @@ watch(
   () => lap.value,
   (newval) => {
     if (newval) {
-      const currentStopwatchTime = `${displayHours.value}:${displayMinutes.value}:${displaySeconds.value}`;
+      const currentStopwatchTime = `${displayMinutes.value}:${displaySeconds.value}.${displayMilliseconds.value}`;
       emit("lap", currentStopwatchTime);
     }
   }
