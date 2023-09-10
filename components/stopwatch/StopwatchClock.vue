@@ -64,6 +64,7 @@ const isValid = ref(false);
 const validationError = ref("");
 
 // inject
+const lap = inject("lap");
 const isStopwatchStarted = inject("started");
 const isStopwatchRunning = inject("running");
 
@@ -172,6 +173,16 @@ watch(
       }
     } else {
       resetStopwatchData();
+    }
+  }
+);
+watch(
+  () => lap.value,
+  (newval) => {
+    if (newval) {
+      console.log(
+        `${displayHours.value}:${displayMinutes.value}:${displaySeconds.value}`
+      );
     }
   }
 );
