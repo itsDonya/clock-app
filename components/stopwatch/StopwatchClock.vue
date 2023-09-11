@@ -50,15 +50,15 @@ const emit = defineEmits(["stop", "lap"]);
 
 // computed
 const displayMinutes = computed(() => {
-  // if current minute has just one digit, display it with a '0' before it, else, show it completely
+  // if current minute is a single-digit, display it with a '0' before it, else, show it completely
   return String(minutes.value).length < 2 ? `0${minutes.value}` : minutes.value;
 });
 const displaySeconds = computed(() => {
-  // if current second has just one digit, display it with a '0' before it, else, show it completely
+  // if current second is a single-digit, display it with a '0' before it, else, show it completely
   return String(seconds.value).length < 2 ? `0${seconds.value}` : seconds.value;
 });
 const displayMilliseconds = computed(() => {
-  // if current millisecond has just one digit, display it with a '0' before it, else, show it completely
+  // if current millisecond is a single-digit, display it with a '0' before it, else, show it completely
   return String(milliseconds.value).length < 2
     ? `0${milliseconds.value}`
     : milliseconds.value;

@@ -58,12 +58,15 @@ const isTimerRunning = inject("running");
 
 // computed
 const displaySeconds = computed(() => {
+  // if current second is a single-digit, display it with a '0' before it, else, show it completely
   return String(seconds.value).length < 2 ? `0${seconds.value}` : seconds.value;
 });
 const displayMinutes = computed(() => {
+  // if current minute is a single-digit, display it with a '0' before it, else, show it completely
   return String(minutes.value).length < 2 ? `0${minutes.value}` : minutes.value;
 });
 const progressBarPercents = computed(() => {
+  // calculate progressbar's percent, up to passed & total seconds (will be used in styles)
   if (isTimerStarted.value) {
     const currentTotalSeconds = minutes.value * 60 + seconds.value;
     const percent =
@@ -76,43 +79,54 @@ const progressBarPercents = computed(() => {
 
 // methods
 const calculateTimer = () => {
+  // calculate total seconds
   totalSeconds.value = minutes.value * 60 + +seconds.value;
 
+  // start interval, running every 1 second
   const secondInterval = setInterval(function () {
+    // check if the timer is running currently, continue running interval. else, stop it (104).
     if (isTimerRunning.value) {
       if (seconds.value > 0) {
+        // if second is more than 0, decrease it
         seconds.value--;
       } else {
+        // if second is 0 or less,
         if (minutes.value > 0) {
+          // if minute is more than 0, decrease it & set seconds to 59
           minutes.value--;
           seconds.value = 59;
         } else {
-          resetTimerData();
-          clearInterval(secondInterval);
+          // if minute is 0 or less,
+          resetTimerData(); // stop timer & clear all changes
+          clearInterval(secondInterval); // stop interval
         }
       }
     } else if (!isTimerStarted.value) {
-      clearInterval(secondInterval);
+      clearInterval(secondInterval); // stop interval
     }
   }, 1000);
 };
 
 const stopTimer = () => {
+  // stop timer (pause)
   emit("stop");
 };
 
 const clearTimer = () => {
+  // clear all changes
   seconds.value = 0;
   minutes.value = 0;
   totalSeconds.value = 0;
 };
 
 const resetTimerData = () => {
+  // reset all changes & completely stop timer
   clearTimer();
   stopTimer();
 };
 
 const checkTimeValidation = () => {
+  // check seconds & minutes input values validation
   if (minutes.value > 60) {
     validationError.value = "Please enter a maximum of 60 minutes.";
   } else if (minutes.value < 0) {
@@ -124,6 +138,7 @@ const checkTimeValidation = () => {
   } else if (seconds.value === 0 && minutes.value === 0) {
     validationError.value = "Minutes & Seconds value cannot be empty.";
   } else {
+    // inputs are both valid
     validationError.value = "";
     isValid.value = true;
   }
@@ -133,15 +148,18 @@ const checkTimeValidation = () => {
 watch(
   () => isTimerStarted.value,
   (newval) => {
+    // while timer got started, first check the inputs validation
     if (newval === true) {
       checkTimeValidation();
 
+      // if inputs' values are valid, start timer. Else, send the validation error to parent
       if (isValid.value) {
         calculateTimer();
       } else {
         emit("not-valid", validationError.value);
       }
     } else {
+      // completely stop the timer
       resetTimerData();
     }
   }

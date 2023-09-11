@@ -7,6 +7,7 @@
     <timer-clock @stop="resetTimer" @not-valid="timeValidation"></timer-clock>
 
     <!-- buttons -->
+    <!-- -- if timer is started but not running (paused), show "cancel" & "resume" buttons -- -->
     <div
       v-if="isStarted && !isRunning"
       class="w-full flex items-center justify-center gap-8"
@@ -14,8 +15,9 @@
       <base-btn @click="cancel" class="text-neutral-500">cancel</base-btn>
       <base-btn @click="resume" class="text-green-500">resume</base-btn>
     </div>
+    <!-- -- if timer is running, show "start" buttons -- -->
     <base-btn
-      @click="stop"
+      @click="pause"
       v-else-if="isStarted && isRunning"
       class="text-primary"
       >stop</base-btn
@@ -44,16 +46,20 @@ provide("running", isRunning);
 
 // methods
 const start = () => {
+  // start & run timer
   isStarted.value = true;
   isRunning.value = true;
 };
-const stop = () => {
+const pause = () => {
+  // pause timer
   isRunning.value = false;
 };
 const resume = () => {
+  // resume timer
   isRunning.value = true;
 };
 const cancel = () => {
+  // completely stop & reset timer
   resetTimer();
 };
 const resetTimer = () => {
@@ -61,7 +67,7 @@ const resetTimer = () => {
   isRunning.value = false;
 };
 const timeValidation = (validationError) => {
-  resetTimer();
-  store.dispatch("showSnackbar", validationError);
+  resetTimer(); // completely stop & reset timer
+  store.dispatch("showSnackbar", validationError); //show a snackbar including the validation's error message
 };
 </script>
