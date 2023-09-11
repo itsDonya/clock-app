@@ -32,3 +32,9 @@ const props = defineProps({
   },
 });
 </script>
+
+<style scoped>
+.nuxt-link-exact-active button {
+  background-color: #b9abab4d;
+}
+</style>
