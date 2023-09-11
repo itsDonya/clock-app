@@ -1,10 +1,13 @@
 <template>
   <base-card>
     <div class="flex items-center justify-start gap-3">
+      <!-- lap counter -->
       <span class="text-primary font-bold">{{ index }}</span>
+      <!-- default title (permanent) -->
       <p class="text-secondary font-bold">Lap</p>
     </div>
     <p class="text-primary font-bold">
+      <!-- lap time -->
       <slot></slot>
     </p>
   </base-card>
