@@ -8,6 +8,6 @@
 
 <script>
 export default {
-  name: "BaseIcon",
+  name: "BasCard",
 };
 </script>
