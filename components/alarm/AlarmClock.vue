@@ -2,8 +2,11 @@
   <div
     class="relative w-56 h-56 bg-light flex flex-col items-center justify-center rounded-full custom-shadow-1"
   >
-    <!-- alarm indicators -->
+    <!-- clock indicators -->
     <alarm-clock-indicators></alarm-clock-indicators>
+
+    <!-- clock hands -->
+    <alarm-clock-hands></alarm-clock-hands>
 
     <!-- inner circle -->
     <div class="w-32 h-32 bg-light rounded-full custom-shadow-3"></div>
