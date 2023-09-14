@@ -5,7 +5,7 @@
       @seconds-up="secondsUp"
     ></alarm-clock-hand-second>
     <alarm-clock-hand-minute :minutes="minutes"></alarm-clock-hand-minute>
-    <!-- <alarm-clock-hand-hour></alarm-clock-hand-hour> -->
+    <alarm-clock-hand-hour :hours="hours"></alarm-clock-hand-hour>
   </div>
 </template>
 
@@ -37,7 +37,14 @@ const minutesUp = () => {
     minutes.value++;
   } else {
     minutes.value = 0;
+    hoursUp();
+  }
+};
+const hoursUp = () => {
+  if (hours.value < 11) {
     hours.value++;
+  } else {
+    hours.value = 0;
   }
 };
 </script>
