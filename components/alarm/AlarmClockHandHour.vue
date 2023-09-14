@@ -12,10 +12,18 @@ export default {
 </script>
 
 <script setup>
-import { computed } from "@nuxtjs/composition-api";
+import { ref, computed } from "@nuxtjs/composition-api";
+
+// variables
+const degree = ref(0);
 
 // props
 const props = defineProps({
+  minutes: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
   hours: {
     type: Number,
     required: true,
@@ -26,13 +34,13 @@ const props = defineProps({
 // computed
 const rotateDeg = computed(() => {
   // calculate rotate degree based on current hour
-  let degree;
   if (props.hours < 13) {
-    degree = 360 / (12 / props.hours);
+    degree.value = 360 / (12 / props.hours);
   } else {
-    degree = 360 / (12 / (props.hours - 12));
+    degree.value = 360 / (12 / (props.hours - 12));
   }
-  return `rotate-[${degree}deg]`;
+  const x = Math.round(30 / (60 / props.minutes));
+  return `rotate-[${degree.value + x}deg]`;
 });
 </script>
 

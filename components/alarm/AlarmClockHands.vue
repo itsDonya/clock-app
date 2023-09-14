@@ -5,7 +5,10 @@
       @seconds-up="secondsUp"
     ></alarm-clock-hand-second>
     <alarm-clock-hand-minute :minutes="minutes"></alarm-clock-hand-minute>
-    <alarm-clock-hand-hour :hours="hours"></alarm-clock-hand-hour>
+    <alarm-clock-hand-hour
+      :minutes="minutes"
+      :hours="hours"
+    ></alarm-clock-hand-hour>
   </div>
 </template>
 
