@@ -1,7 +1,7 @@
 <template>
   <span
     :class="[rotateDeg]"
-    class="absolute top-[50%] right-[50%] h-[2px] before:absolute before:right-0 before:w-24 before:h-full before:bg-rose-900 before:rounded-full"
+    class="absolute top-[50%] right-[50%] h-[2px] before:absolute before:right-0 before:w-24 before:h-full before:bg-rose-900 before:rounded-full z-20"
   ></span>
 </template>
 

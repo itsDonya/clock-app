@@ -1,7 +1,7 @@
 <template>
   <span
     :class="[rotateDeg]"
-    class="absolute top-[50%] w-1/2 h-1 before:absolute before:right-0 before:w-24 before:h-full before:bg-blue-400 before:rounded-full"
+    class="absolute top-[50%] w-1/2 h-1 before:absolute before:right-0 before:w-24 before:h-full before:bg-secondary before:rounded-full z-10"
   ></span>
 </template>
 
@@ -12,22 +12,23 @@ export default {
 </script>
 
 <script setup>
-import { ref, computed } from "@nuxtjs/composition-api";
+import { computed } from "@nuxtjs/composition-api";
 
-// variables
-const seconds = ref(0);
+// props
+const props = defineProps({
+  minutes: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
+});
 
 // computed
 const rotateDeg = computed(() => {
-  const x = 60 / seconds.value;
-  const y = 360 / x;
-  return `rotate-[${y}deg]`;
+  // calculate rotate degree based on current minute
+  const degree = 360 / (60 / props.minutes);
+  return `rotate-[${degree}deg]`;
 });
-
-// interval
-// setInterval(() => {
-//   seconds.value++;
-// }, 1000);
 </script>
 
 <style scoped>
