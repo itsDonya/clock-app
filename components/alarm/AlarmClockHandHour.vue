@@ -26,7 +26,12 @@ const props = defineProps({
 // computed
 const rotateDeg = computed(() => {
   // calculate rotate degree based on current hour
-  const degree = 360 / (12 / props.hours);
+  let degree;
+  if (props.hours < 13) {
+    degree = 360 / (12 / props.hours);
+  } else {
+    degree = 360 / (12 / (props.hours - 12));
+  }
   return `rotate-[${degree}deg]`;
 });
 </script>
