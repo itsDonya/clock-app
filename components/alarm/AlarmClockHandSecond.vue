@@ -12,30 +12,31 @@ export default {
 </script>
 
 <script setup>
-import { ref, computed } from "@nuxtjs/composition-api";
+import { computed } from "@nuxtjs/composition-api";
 
-// variables
-const seconds = ref(0);
+// props
+const props = defineProps({
+  seconds: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
+});
 
 // emit
-const emit = defineEmits("minutes-up");
+const emit = defineEmits("seconds-up");
 
 // computed
 const rotateDeg = computed(() => {
   // calculate rotate degree based on current second
-  const degree = 360 / (60 / seconds.value);
+  const degree = 360 / (60 / props.seconds);
   return `rotate-[${degree}deg]`;
 });
 
 // methods
 const runTimerSeconds = () => {
   setInterval(() => {
-    if (seconds.value < 59) {
-      seconds.value++;
-    } else {
-      seconds.value = 0;
-      emit("minutes-up");
-    }
+    emit("seconds-up");
   }, 1000);
 };
 runTimerSeconds();
