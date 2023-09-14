@@ -44,7 +44,7 @@ const minutesUp = () => {
   }
 };
 const hoursUp = () => {
-  if (hours.value < 11) {
+  if (hours.value < 23) {
     hours.value++;
   } else {
     hours.value = 0;
